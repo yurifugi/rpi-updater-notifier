@@ -30,7 +30,7 @@ crontab -e
 
 Add the line below. It will run at 10:59AM.
 
-`59 10 * * * /usr/local/bin/rpi-update-status.sh`
+`59 10 * * * /usr/local/bin/rpi-updater-notifier.sh`
 
 ## Configuring `sendmail` relay with Gmail
 
