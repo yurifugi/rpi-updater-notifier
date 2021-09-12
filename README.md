@@ -125,23 +125,23 @@ The line will break, and nothing is displayed. This is `sendmail` awaiting for t
 
 Type
 `Subject: test123test`
-Then hit <ENTER>
+Then hit ENTER key
 
 Now type the message
 `Is it working?`
-Then hit <ENTER>.
+Then hit ENTER key.
 
-Now, to indicate the end of the message, sendmail expects a period "."
+Now, to indicate the end of the message, sendmail expects a period (".").
 
 So, type:
 
 `.`
 
-Then hit <ENTER>.
+Then hit ENTER key.
 
 Your screen will looks like:
 
-````
+```
 $ sendmail username@gmail.com
 Subject: test123test
 Is it working?
@@ -153,5 +153,3 @@ That's it! Check your Gmail inbox for the test123test email.
 
 This `sendmail` config section was entirely based on Stacy Prowell
 article (https://medium.com/swlh/setting-up-gmail-and-other-email-on-a-raspberry-pi-6f7e3ad3d0e)
-```
-````
