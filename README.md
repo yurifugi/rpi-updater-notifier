@@ -2,7 +2,9 @@
 
 `rpi-updater notifier` is a Shell Script for updating Raspberrypi OS.
 
-It also notifies, with an email notification, thru Gmail relay.
+After running all RpiOS update commands, it will notify someone with an email notification.
+
+The email is sent by `sendmail` thru Gmail relay. Learn below how to install and configure `sendmail`for Gmail relay.
 
 ## Usage
 
@@ -13,7 +15,22 @@ git clone https://github.com/yurifugi/rpi-updater-notifier.git
 cd rpi-updater-notifier
 ```
 
-Edit `rpi-updater-notifier.sh`, adding your email address to the variable `MAIL_TO`.
+Edit file `rpi-updater-notifier.sh`, adding your email address to the variable `MAIL_TO`.
+
+Copy `rpi-updater-notifier.sh` to someplace in your `PATH`.
+
+`sudo cp rpi-updater-notifier.sh /usr/local/bin`
+
+Edit your root user crontab:
+
+```
+sudo su -
+crontab -e
+```
+
+Add the line below. It will run at 10:59AM.
+
+`59 10 * * * /usr/local/bin/rpi-update-status.sh`
 
 ## Configuring `sendmail` relay with Gmail
 
@@ -42,38 +59,47 @@ Take note of the char(16) password.
 
 You'll create the file, then add some text to it.
 
-Open the file for edition with
+Open the file for edition:
+
 `sudo vi /etc/postfix/sasl/sasl_passwd`
 
 Then add the line below, changing your username and password (the char(16) password from earlier).
+
 `[smtp.gmail.com]:587 username@gmail.com:password`
 
-Protect the file, for good measure
+Protect the file, for good measure:
+
 `sudo chmod u=rw,go= /etc/postfix/sasl/sasl_passwd`
 
-Hash the file for Postfix use
+Hash the file for Postfix use:
+
 `sudo postmap /etc/postfix/sasl/sasl_passwd`
 
-Secure the file
+Secure the file:
+
 `sudo chmod u=rw,go= /etc/postfix/sasl/sasl_passwd.db`
 
 ### Configuring Postfix
 
-Create a backup for the Postfix config file
+Create a backup for the Postfix config file:
+
 `sudo cp /etc/postfix/main.cf !#$.dist`
 
-Edit the config file
+Edit the config file:
 
 `sudo vi /etc/postfix/main.cf`
 
 Change line
+
 `relayhost = `
+
 to
+
 `relayhost = [smtp.gmail.com]:587`
 
-Scroll down to the end of file, then add the lines below to the end of the file
+Scroll down to the end of file, then add the lines below to the end of the file.
 
-````
+```
 # Enable authentication using SASL.
 smtp_sasl_auth_enable = yes
 # Use transport layer security (TLS) encryption.
@@ -87,8 +113,8 @@ smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 ```
 
 Restart Postfix
-`sudo systemctl restart postfix`
 
+`sudo systemctl restart postfix`
 
 ### Testing
 
@@ -106,14 +132,16 @@ Now type the message
 Then hit <ENTER>.
 
 Now, to indicate the end of the message, sendmail expects a period "."
-So, type
+
+So, type:
+
 `.`
+
 Then hit <ENTER>.
 
 Your screen will looks like:
 
 ````
-
 $ sendmail username@gmail.com
 Subject: test123test
 Is it working?
@@ -126,3 +154,4 @@ That's it! Check your Gmail inbox for the test123test email.
 This `sendmail` config section was entirely based on Stacy Prowell
 article (https://medium.com/swlh/setting-up-gmail-and-other-email-on-a-raspberry-pi-6f7e3ad3d0e)
 ```
+````
