@@ -8,7 +8,8 @@ It also notifies, with an email notification, thru Gmail relay.
 
 Clone this repo
 
-```git clone https://github.com/yurifugi/rpi-updater-notifier.git
+```
+git clone https://github.com/yurifugi/rpi-updater-notifier.git
 cd rpi-updater-notifier
 ```
 
@@ -72,7 +73,8 @@ to
 
 Scroll down to the end of file, then add the lines below to the end of the file
 
-````# Enable authentication using SASL.
+````
+# Enable authentication using SASL.
 smtp_sasl_auth_enable = yes
 # Use transport layer security (TLS) encryption.
 smtp_tls_security_level = encrypt
@@ -81,7 +83,8 @@ smtp_sasl_security_options = noanonymous
 # Specify where to find the login information.
 smtp_sasl_password_maps = hash:/etc/postfix/sasl/sasl_passwd
 # Where to find the certificate authority (CA) certificates.
-smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt```
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+```
 
 Restart Postfix
 `sudo systemctl restart postfix`
@@ -91,7 +94,9 @@ Restart Postfix
 
 We're using `sendmail` to test if the connection is ok. Issue
 `sendmail username@gmail.com`
+
 The line will break, and nothing is displayed. This is `sendmail` awaiting for the email text.
+
 Type
 `Subject: test123test`
 Then hit <ENTER>
@@ -105,7 +110,6 @@ So, type
 `.`
 Then hit <ENTER>.
 
-
 Your screen will looks like:
 
 ````
@@ -117,7 +121,7 @@ Is it working?
 
 ```
 
-That's it! Check your Gmail account.
+That's it! Check your Gmail inbox for the test123test email.
 
 This `sendmail` config section was entirely based on Stacy Prowell
 article (https://medium.com/swlh/setting-up-gmail-and-other-email-on-a-raspberry-pi-6f7e3ad3d0e)
