@@ -16,10 +16,10 @@ SUBJECT="[$(/usr/bin/hostname)] Status apt update $DATA_INICIO"
     /usr/bin/apt-get upgrade -y 2>&1
     /usr/bin/echo
     /usr/bin/echo "# apt-get autoremove -y"
-    /usr/bin/apt autoremove -y 2>&1 
+    /usr/bin/apt-get autoremove -y 2>&1 
     /usr/bin/echo
     /usr/bin/echo "# apt-get clean -y"
-    /usr/bin/apt clean -y 2>&1 
+    /usr/bin/apt-get clean -y 2>&1 
     if [ -f  /var/run/reboot-required ]
     then
         /usr/bin/echo
